@@ -17,6 +17,9 @@ public class QuestionDA    {
     }
 
 
+    public List<Question> getQuestionList() {
+        return quest;
+    }
     public List<Question> getAnswer(String correct){
 
         ArrayList<Question> answers = new ArrayList<>();
