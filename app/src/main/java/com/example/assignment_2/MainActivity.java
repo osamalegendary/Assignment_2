@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private List<Question> questionList;
     private int currentQuestionIndex = 0;
-
     private TextView questionTextView;
     private RadioGroup answerRadioGroup;
     private Button nextButton;
@@ -32,33 +31,32 @@ public class MainActivity extends AppCompatActivity {
         answerRadioGroup = findViewById(R.id.answerGroup);
         nextButton = findViewById(R.id.nextButton);
 
-        // Initialize SharedPreferences
+
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
 
-        // Create and populate the question list
+
         QuestionDA questionDA = new QuestionDA();
         questionList = questionDA.getQuestionList();
 
-        // Display the first question
+
         displayQuestion();
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Save the selected answer
+
                 int selectedRadioButtonId = answerRadioGroup.getCheckedRadioButtonId();
                 RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
                 String selectedAnswer = selectedRadioButton.getText().toString();
                 saveAnswer(selectedAnswer);
 
-                // Move to the next question
+
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questionList.size()) {
                     displayQuestion();
                 } else {
-                    // All questions have been answered
-                    // You can perform any necessary actions here, such as showing a result or score
+
                     showResult();
                 }
             }
@@ -68,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
     private void displayQuestion() {
         Question question = questionList.get(currentQuestionIndex);
 
-        // Set the question text
+
         questionTextView.setText(question.getQuestion());
 
-        // Set the answer options
+
         RadioButton answer1RadioButton = findViewById(R.id.answer1);
         RadioButton answer2RadioButton = findViewById(R.id.answer2);
         RadioButton answer3RadioButton = findViewById(R.id.answer3);
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         answer3RadioButton.setText(question.getAnswer3());
         answer4RadioButton.setText(question.getAnswer4());
 
-        // Clear the selection
+
         answerRadioGroup.clearCheck();
     }
 
@@ -105,8 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
         String result = resultBuilder.toString();
 
-        // Display the result (you can customize how you want to show it, e.g., in a TextView)
-        // For example, if you have a TextView with the ID "resultTextView":
+
         TextView resultTextView = findViewById(R.id.resultTextView);
         resultTextView.setText(result);
     }
